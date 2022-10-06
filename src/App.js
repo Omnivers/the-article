@@ -1,25 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { PrismicRichText, useFirstPrismicDocument, useAllPrismicDocumentsByType} from '@prismicio/react'
+import { useEffect } from 'react';
 
 function App() {
+  const [documents, { state, error }] = useAllPrismicDocumentsByType('post')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    {documents &&
+    <main>
+    <div className='title'>
+      <h1>{documents[0].data.title[0].text}</h1>
     </div>
-  );
+    <div className='content'>
+      <h2>{documents[0].data.content[0].text}</h2>
+    </div>
+    </main>
+    }
+    </>
+  )
 }
 
 export default App;
