@@ -1,24 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
-import { PrismicRichText, useFirstPrismicDocument, useAllPrismicDocumentsByType} from '@prismicio/react'
-import { useEffect } from 'react';
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import Home from './Pages/Home';
+import Article from './Pages/Article';
+import Notfound from './Pages/Notfound';
 
 function App() {
-  const [documents, { state, error }] = useAllPrismicDocumentsByType('post')
-  return (
-    <>
-    {documents &&
-    <main>
-    <div className='title'>
-      <h1>{documents[0].data.title[0].text}</h1>
-    </div>
-    <div className='content'>
-      <h2>{documents[0].data.content[0].text}</h2>
-    </div>
-    </main>
-    }
-    </>
-  )
+     return(
+      <BrowserRouter>
+        <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/:id' element={<Article />} />
+            <Route path='*' element={<Notfound />} />
+        </Routes>
+      </BrowserRouter>
+     )
 }
 
 export default App;
